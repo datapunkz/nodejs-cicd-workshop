@@ -1,0 +1,26 @@
+{
+  "name": "nodejs-cicd-workshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datapunkz/nodejs-cicd-workshop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/datapunkz/nodejs-cicd-workshop/issues"
+  },
+  "homepage": "https://github.com/datapunkz/nodejs-cicd-workshop#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "mocha": "^5.2.0",
+    "request": "^2.88.0"
+  }
+}
