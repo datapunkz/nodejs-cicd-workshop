@@ -17,7 +17,7 @@ app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
     // var message = "Hello World";
-    res.render("index", {message: exports.welcomeMessage});
+    res.render("index", {message: welcomeMessage()});
 });
 
 var server = app.listen(5000, function () {
