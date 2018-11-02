@@ -2,7 +2,7 @@ version: 2
 jobs:
   build_test:
     docker:
-      - image: node:10
+      - image: circleci/node:10
     steps:
       - checkout
       - run:
@@ -12,7 +12,7 @@ jobs:
             npm test
   deploy:
     docker:
-      - image: node:10
+      - image: circleci/node:10
     steps:
       - checkout
       - setup_remote_docker:
