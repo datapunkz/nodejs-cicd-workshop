@@ -2,13 +2,8 @@ var express = require('express');
 var app = express();
 var exports = module.exports = {};
 
-// exports.welcomeMessage = function(){
-//     var message = "Hello World";
-//     return message;
-// }
-
 function welcomeMessage(){
-    var message = "Welcome to CI/CD 101 using CircleCI!";
+    var message = "Welcome to CI/CD 101 using CircleCI";
     return message;
 }
 
