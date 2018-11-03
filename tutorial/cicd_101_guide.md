@@ -188,6 +188,34 @@ EXPOSE 5000
 CMD [ "npm", "start" ]
 ```
 
+## WorkFlows
+
+The `workflows:` key in this configuration enables the [CircleCI Workflows features](https://circleci.com/docs/2.0/workflows/#overview) which is a set of rules for defining a collection of jobs and their run order. Workflows support complex job orchestration using a simple set of configuration keys to help you resolve failures sooner.
+
+```yaml
+workflows:
+  version: 2
+  build_test_deploy:
+    jobs:
+      - build_test
+      - deploy:
+          requires:
+            - build_test
+```
+
+`build_test_deploy:` key is the name for the workflow. The `jobs:` key is a collection of jos the workflow will execute. In this configuration the `build_test:` and `deploy`jobs are specified in this workflow. The `build_test` job will execute first then the `deploy` job will execute **only** if the `build_test` job passes.
+
+This section of the workflow configuration below shows that the `deploy` job is dependent on the `build_test` job successfully passing and the `requires:  -build_test` syntax specifies this dependency. This example is considered a [Sequential Job Execution](https://circleci.com/docs/2.0/workflows/#sequential-job-execution-example) in which the jobs run according to configured requirements, each job waiting to start until the required job finishes successfully
+
+```yaml
+- build_test
+- deploy:
+    requires:
+      - build_test
+```
+
+Visit the [CircleCI Workflows docs](https://circleci.com/docs/2.0/workflows) to learn more about the CircleCI Workflows features.
+
 ## Hands On with CircleCI
 
 The `config.yml` file has been explained in detail and provides an initial understanding of how code bases, CI/CD concepts and using CircleCI to facilitate pipelines. The rest of this document will demonstrate how to integrate CircleCI into a user's CircleCI profile and executing CI/CD builds. The [cicd-101-workshop repo](https://github.com/datapunkz/nodejs-cicd-workshop/tutorial/cicd_101_guide.md) will be used in this example.
