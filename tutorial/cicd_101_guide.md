@@ -216,6 +216,7 @@ This section of the workflow configuration below shows that the `deploy` job is 
 
 Visit the [CircleCI Workflows docs](https://circleci.com/docs/2.0/workflows) to learn more about the CircleCI Workflows features.
 
+
 ## Hands On with CircleCI
 
 The `config.yml` file has been explained in detail and provides an initial understanding of how code bases, CI/CD concepts and using CircleCI to facilitate pipelines. The rest of this document will demonstrate how to integrate CircleCI into a user's CircleCI profile and executing CI/CD builds. The [cicd-101-workshop repo](https://github.com/datapunkz/nodejs-cicd-workshop/tutorial/cicd_101_guide.md) will be used in this example.
