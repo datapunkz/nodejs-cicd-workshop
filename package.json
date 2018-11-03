@@ -1,7 +1,7 @@
 {
   "name": "nodejs-cicd-workshop",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Node.JS Introduction into CI/CD",
   "main": "app.js",
   "scripts": {
     "test": "mocha",
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/datapunkz/nodejs-cicd-workshop.git"
   },
-  "author": "",
+  "author": "Angel Rivera",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/datapunkz/nodejs-cicd-workshop/issues"
