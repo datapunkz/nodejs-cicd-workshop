@@ -131,7 +131,7 @@ Once the application is built and tested you should think about deploying the ap
             docker push $DOCKER_LOGIN/$IMAGE_NAME
 ```
 
-The `docker:`, `steps:` and `checkout` are declared and function the same as the keys defined in the previous `build_test:` job so ext we'll cover the `- setup_remote_docker:` key.
+The `docker:`, `steps:` and `checkout` are declared and function the same as the keys defined in the previous `build_test:` job so next we'll cover the `- setup_remote_docker:` key.
 
 ```yaml
 - setup_remote_docker:
