@@ -10,7 +10,7 @@ jobs:
           command: |
             npm install ejs express request mocha --save
             npm test
-  deploy:
+  build_push_docker_image:
     docker:
       - image: circleci/node:10
     steps:
@@ -26,7 +26,31 @@ jobs:
             docker build -t $DOCKER_LOGIN/$IMAGE_NAME -t $DOCKER_LOGIN/$IMAGE_NAME:$TAG .
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
             docker push $DOCKER_LOGIN/$IMAGE_NAME
-
+  deploy_to_gcp:
+    docker:
+      - image: circleci/python:3.7.2
+        environment:
+          CLOUDSDK_PYTHON: '/usr/bin/python2.7'
+          GOOGLE_SDK_PATH: '~/google-cloud-sdk/'
+    steps:
+      - checkout
+      - pulumi/login:
+          access-token: ${PULUMI_ACCESS_TOKEN}
+      - run:
+          name: Install dependecies
+          command: |
+            cd ~/
+            sudo pip install --upgrade pip==18.0 && pip install --user pulumi pulumi-gcp pulumi-kubernetes
+            curl -o gcp-cli.tar.gz https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz
+            tar -xzvf gcp-cli.tar.gz
+            echo ${GOOGLE_CLOUD_KEYS} | base64 --decode --ignore-garbage > ${HOME}/project/pulumi/gcp/gke/cicd_demo_gcp_creds.json
+            ./google-cloud-sdk/install.sh  --quiet 
+            echo 'export PATH=$PATH:~/google-cloud-sdk/bin' >> $BASH_ENV
+            source $BASH_ENV
+            gcloud auth activate-service-account --key-file ${HOME}/project/pulumi/gcp/gke/cicd_demo_gcp_creds.json
+      - pulumi/update:
+          stack: k8s
+          working_directory: ${HOME}/project/pulumi/gcp/gke/
 workflows:
   version: 2
   build_test_deploy:
