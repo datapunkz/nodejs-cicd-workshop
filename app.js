@@ -3,7 +3,7 @@ var app = express();
 var exports = module.exports = {};
 
 function welcomeMessage(){
-    var message = "Welcome to CI/CD 101 using CircleCI";
+    var message = "Welcome to CI/CD 101 using CircleCI!";
     return message;
 }
 
