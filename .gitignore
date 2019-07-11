@@ -92,3 +92,4 @@ plan.txt
 website/vendor
 namecheap.tf
 cicd_demo_gcp_creds.json
+*.pyc
