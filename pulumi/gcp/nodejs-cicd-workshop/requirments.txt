@@ -1,0 +1,4 @@
+pulumi 
+pulumi-gcp 
+pulumi-kubernetes 
+pylint

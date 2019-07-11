@@ -1,0 +1,3 @@
+name: nodejs-cicd-workshop
+runtime: python
+description: Demo for NodeJS CI/CD Workshop
