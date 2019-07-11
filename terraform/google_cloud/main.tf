@@ -46,7 +46,7 @@ resource "google_compute_firewall" "http-5000" {
 }
 
 resource "google_compute_instance" "default" {
-  name         = "default"
+  name         = "nodejs-cicd-workshop"
   machine_type = "g1-small"
   zone         = "us-east1-b"
   tags = [
@@ -78,7 +78,7 @@ resource "google_compute_instance" "default" {
   }
 }
 
-output "Public IP Address" {
+output Public_IP_Address {
   value = google_compute_instance.default.network_interface[0].access_config[0].nat_ip
 }
 
