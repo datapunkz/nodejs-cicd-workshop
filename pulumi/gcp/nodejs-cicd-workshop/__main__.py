@@ -23,7 +23,7 @@ if 'CIRCLE_SHA1' in os.environ:
 else:
     image_tag = 'latest'
 
-docker_image = 'ariv3ra/orb-node-pulumi:{0}'.format(image_tag)
+docker_image = 'ariv3ra/nodejs-cicd-workshop:{0}'.format(image_tag)
 
 machine_type = 'g1-small'
 
