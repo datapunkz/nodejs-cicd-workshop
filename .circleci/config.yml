@@ -56,6 +56,9 @@ workflows:
   build_test_deploy:
     jobs:
       - build_test
-      - deploy:
+      - build_push_docker_image:
+        requires:
+          - build_test
+      - deploy_to_gcp:
           requires:
-            - build_test
+            - build_push_docker_image
