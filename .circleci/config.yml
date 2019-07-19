@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 orbs:
   pulumi: pulumi/pulumi@1.0.1
 jobs:
@@ -45,14 +45,14 @@ jobs:
             sudo pip install --upgrade pip==18.0 && pip install --user pulumi pulumi-gcp pulumi-kubernetes
             curl -o gcp-cli.tar.gz https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz
             tar -xzvf gcp-cli.tar.gz
-            echo ${GOOGLE_CLOUD_KEYS} | base64 --decode --ignore-garbage > ${HOME}/project/pulumi/gcp/gke/cicd_demo_gcp_creds.json
+            echo ${GOOGLE_CLOUD_KEYS} | base64 --decode --ignore-garbage > ${HOME}/project/pulumi/gcp/nodejs-cicd-workshop/cicd_demo_gcp_creds.json
             ./google-cloud-sdk/install.sh  --quiet 
             echo 'export PATH=$PATH:~/google-cloud-sdk/bin' >> $BASH_ENV
             source $BASH_ENV
-            gcloud auth activate-service-account --key-file ${HOME}/project/pulumi/gcp/gke/cicd_demo_gcp_creds.json
+            gcloud auth activate-service-account --key-file ${HOME}/project/pulumi/gcp/nodejs-cicd-workshop/cicd_demo_gcp_creds.json
       - pulumi/update:
           stack: k8s
-          working_directory: ${HOME}/project/pulumi/gcp/gke/
+          working_directory: ${HOME}/project/pulumi/gcp/nodejs-cicd-workshop
 workflows:
   version: 2
   build_test_deploy:
