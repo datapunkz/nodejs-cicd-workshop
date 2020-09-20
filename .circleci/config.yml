@@ -1,33 +1,38 @@
-version: 2
+version: 2.1
 jobs:
   build_test:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     steps:
       - checkout
       - run:
-          name: Run Tests
+          name: Install npm dependencies
           command: |
-            npm install ejs express request mocha --save
-            npm test
+            sudo npm install -g
+      - run:
+          name: Run Unit Tests
+          command: |
+            ./node_modules/mocha/bin/mocha test/ --reporter mochawesome --reporter-options reportDir=test-results,reportFilename=test-results
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
   deploy:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     steps:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: false
       - run:
-          name: Build and push image to Docker Hub
-          command: |       
-            echo 'export TAG=0.1.${CIRCLE_BUILD_NUM}' >> $BASH_ENV
-            echo 'export IMAGE_NAME=nodejs-cicd-workshop' >> $BASH_ENV
-            source $BASH_ENV
+          name: Build Docker image
+          command: |
+            export TAG=0.1.<< pipeline.number >>
+            export IMAGE_NAME=$CIRCLE_PROJECT_REPONAME
             docker build -t $DOCKER_LOGIN/$IMAGE_NAME -t $DOCKER_LOGIN/$IMAGE_NAME:$TAG .
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
             docker push $DOCKER_LOGIN/$IMAGE_NAME
 workflows:
-  version: 2
   build_test_deploy:
     jobs:
       - build_test
