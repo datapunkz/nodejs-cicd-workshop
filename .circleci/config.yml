@@ -17,7 +17,7 @@ jobs:
           path: test-results
       - store_artifacts:
           path: test-results
-  runner:
+  runner_build_test:
     machine: true
     resource_class: datapunks/dorunner
     steps:
@@ -52,7 +52,7 @@ jobs:
 workflows:
   build_test_deploy:
     jobs:
-      - runner
+      - runner_build_test
       # - build_test
       # - deploy:
       #     requires:
