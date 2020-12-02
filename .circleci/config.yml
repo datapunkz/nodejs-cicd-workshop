@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  snyk: snyk/snyk@0.0.12
 jobs:
   build_test:
     docker:
@@ -17,6 +19,7 @@ jobs:
           path: test-results
       - store_artifacts:
           path: test-results
+  
   runner_build_test:
     machine: true
     resource_class: datapunks/dorunner
@@ -31,7 +34,20 @@ jobs:
           command: |
             ./node_modules/mocha/bin/mocha test/ --reporter mochawesome --reporter-options reportDir=test-results,reportFilename=test-results
       - store_artifacts:
-          path: test-results          
+          path: test-results
+  runner_scan_app:
+    machine: true
+    resource_class: datapunks/dorunner
+    steps:
+      - checkout
+      - run:
+          name: Snyk Scan Application files 
+          command: |
+            sudo npm -g install 
+      - snyk/scan:
+          fail-on-issues: false
+          monitor-on-build: false
+
   deploy:
     docker:
       - image: circleci/node:12
@@ -51,6 +67,7 @@ workflows:
   build_test_deploy:
     jobs:
       - runner_build_test
+      - runner_scan_app
       # - build_test
       # - deploy:
       #     requires:
