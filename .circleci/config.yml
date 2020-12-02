@@ -35,6 +35,7 @@ jobs:
             ./node_modules/mocha/bin/mocha test/ --reporter mochawesome --reporter-options reportDir=test-results,reportFilename=test-results
       - store_artifacts:
           path: test-results
+  
   runner_scan_app:
     machine: true
     resource_class: datapunks/dorunner
@@ -43,12 +44,10 @@ jobs:
       - run:
           name: Snyk Scan Application files 
           command: |
-            whoami
             sudo npm -g install 
       - snyk/scan:
           fail-on-issues: false
           monitor-on-build: false
-
 
   deploy:
     docker:
@@ -65,6 +64,7 @@ jobs:
             docker build -t $DOCKER_LOGIN/$IMAGE_NAME -t $DOCKER_LOGIN/$IMAGE_NAME:$TAG .
             echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
             docker push $DOCKER_LOGIN/$IMAGE_NAME
+
 workflows:
   build_test_deploy:
     jobs:
