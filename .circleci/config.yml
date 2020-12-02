@@ -43,6 +43,7 @@ jobs:
       - run:
           name: Snyk Scan Application files 
           command: |
+            whoami
             sudo npm -g install 
       - snyk/scan:
           fail-on-issues: false
