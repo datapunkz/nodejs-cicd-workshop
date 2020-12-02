@@ -71,6 +71,7 @@ workflows:
       - runner_build_test
       - runner_scan_app
       # - build_test
-      # - deploy:
-      #     requires:
-      #       - build_test
+      - deploy:
+          requires:
+            - runner_build_test
+            - runner_scan_app
