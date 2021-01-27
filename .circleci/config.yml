@@ -70,7 +70,7 @@ workflows:
     jobs:
       - runner_build_test
       - runner_scan_app
-      # - build_test
+      - build_test
       - deploy:
           requires:
             - runner_build_test
